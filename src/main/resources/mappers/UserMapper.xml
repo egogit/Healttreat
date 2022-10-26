@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.healthtreat.mapper.UserMapper">
+
+	<sql id="userColumns">
+		email
+	,	passwd
+	,	name
+	,	addr
+	, 	addr_detail
+	,	zip_code
+	,	phone
+	</sql>
+	
+	<insert id="registerUser" parameterType="UserDTO">
+		INSERT INTO user (
+			<include refid="userColumns"/>
+		) VALUES (
+				#{email}
+			,	#{passwd}
+			,	#{name}
+			,	#{addr}
+			,	#{addrDetail}
+			,	#{zipCode}
+			,	#{phone}
+		)
+	</insert>
+	
+	<select id="selectUserInfo" parameterType="long" resultType="UserDTO">
+		SELECT
+				id
+			,	<include refid="userColumns"/>
+			,	type
+		FROM
+			user
+		WHERE
+			id = #{id}
+	</select>
+	
+	<update id="updateUser" parameterType="UserDTO">
+		UPDATE user
+		SET
+				email = #{email}
+			,	passwd = #{passwd}
+			,	addr = #{addr}
+			,	addr_detail = #{addrDetail}
+			,	zip_code = #{zipCode}
+			,	phone	= #{phone}
+			, 	revised_at = NOW()
+		WHERE
+				id = #{id}
+	</update>
+	
+	<delete id="deleteUser" parameterType="long">
+		DELETE FROM 
+				user
+		WHERE
+				id = #{id}
+	</delete>
+	
+	<select id="login" parameterType="UserDTO" resultType="UserDTO">
+		SELECT
+				id
+		FROM
+				user
+		WHERE
+				email = #{email}
+				AND
+				passwd = #{passwd}
+	</select>
+
+</mapper>
