@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.healthtreat.mapper.ProductMapper">
+
+	<sql id="productColumns">
+			name
+		,	price
+		,	dc_price
+		,	brand
+		, 	thumbnail
+		,	description
+		,	description_img
+		,	onSale
+		,	company_id
+		,	tag_id
+	</sql>
+	
+	<insert id="registerProduct" parameterType="ProductDTO">
+		INSERT INTO product (
+			<include refid="productColumns"/>
+		) VALUES (
+				#{name}
+			,	#{price}
+			,	#{dcPrice}
+			,	#{brand}
+			,	#{thumbnail}
+			,	#{description}
+			,	#{descriptionImg}
+			,	#{onSale}
+			,	#{companyId}
+			,	#{tagId}
+		)
+	</insert>
+	
+	<select id="selectProductInfo" parameterType="long" resultType="ProductDTO">
+		SELECT
+				id
+			,	<include refid="productColumns"/>
+		FROM
+			product
+		WHERE
+			id = #{id}
+	</select>
+	
+	<update id="updateProduct" parameterType="ProductDTO">
+		UPDATE product
+		SET
+				name = #{name}
+			,	price = #{price}
+			,	dc_price = #{dcPrice}
+			,	brand = #{brand}
+			,	thumbnail = #{thumbnail}
+			,	description = #{description}
+			,	description_img = #{descriptionImg}
+			,	onSale = #{onSale}
+			,	company_id = #{companyId}
+			,	tag_id = #{tagId}
+			,	revised_at = NOW()
+		WHERE
+				id = #{id}
+	</update>
+	
+	<delete id="deleteProduct" parameterType="long">
+		DELETE FROM 
+				product
+		WHERE
+				id = #{id}
+	</delete>
+
+</mapper>
