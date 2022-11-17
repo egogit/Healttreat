@@ -89,8 +89,8 @@ public class UserMapperTests {
 	@Test
 	public void testOfLogin() {
 		UserDTO params = new UserDTO();
-		params.setEmail("example@example.com");
-		params.setPasswd("test");
+		params.setEmail("example@naver.com");
+		params.setPasswd("test1");
 		UserDTO user = userMapper.login(params);
 		if (user != null) {
 			System.out.println("반갑습니다 " + user.getName() + "님");

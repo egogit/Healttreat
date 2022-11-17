@@ -1,10 +1,84 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<!-- Todo -->
-</body>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.zn/thymeleaf/layout" layout:decorate="user/layout/basic">
+	<th:block layout:fragment="title">
+		<title>User SignIn page</title>
+	</th:block>
+	
+	<!-- TODO. CSS not applied -->
+	
+	<th:block layout:fragment="content">
+		<div class="card-content">
+			<form class="form-horizontal" th:action="@{/user/register.do}" th:object="${user}" method="post" onsubmit="return registerUser(this)">
+			
+				<div class="form-group">
+					<label for="email" class="col-sm-2 control-label">이메일</label>
+					<div class="col-sm-10">
+						<input type="email" th:field="*{email}" class="form-control" placeholder="이메일(아이디)" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="passwd" class="col-sm-2 control-label">비밀번호</label>
+					<div class="col-sm-10">
+						<input type="password" th:field="*{passwd}" class="form-control" placeholder="패스워드" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="name" class="col-sm-2 control-label">이름</label>
+					<div class="col-sm-10">
+						<input type="text" th:field="*{name}" class="form-control" placeholder="이름" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="addr" class="col-sm-2 control-label">도로명 주소</label>
+					<div class="col-sm-10">
+						<input type="text" th:field="*{addr}" class="form-control" placeholder="도로명 주소" />
+					</div>
+					<label for="addrDetail" class="col-sm-2 control-label">세부주소</label>
+					<div class="col-sm-10">
+						<input type="text" th:field="*{addrDetail}" class="form-control" placeholder="세부주소" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="zipCode" class="col-sm-2 control-label">우편번호</label>
+					<div class="col-sm-10">
+						<input type="text" th:field="*{zipCode}" class="form-control" placeholder="우편번호" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="phone" class="col-sm-2 control-label">핸드폰번호</label>
+					<div class="col-sm-10">
+						<input type="tel" th:field="*{phone}" class="form-control" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" />
+					</div>
+				</div>
+				
+				<div class="btn_wrap text-center" th:object="${params}">
+					<button type="submit" class="btn btn-primary waves-effect waves-light">회원가입하기</button>
+				</div>
+			</form>
+		</div>
+	</th:block>
+	
+	<th:block layout:Fragment="script">
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+				
+				function registerUser(form) {
+					var result = (
+						   isValid(form.email, "이메일", null, null)
+						&& isValid(form.passwd, "비밀번호", null, null)
+						&& isValid(form.name, "이름", null, null)
+					);
+					if( result == false ) {
+						return false;
+					}
+				}
+			/*]]>*/
+			
+		</script>
+	</th:block>
 </html>
